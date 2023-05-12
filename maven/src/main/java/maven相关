@@ -1,0 +1,21 @@
+maven：自动化构建工具
+
+一些之前不知道的知识：
+    1）不再需要去下载tomcat，jetty什么的了，只需要在pom.xml中配置一下相关的插件就行
+    2）一般情况下会有一个父模块，主要是用来控制除了compile周期之外（test，provided）的依赖的版本号，因为compile周期的依赖有“依赖传递”，不需要额外控制
+                 <dependencyManagement>
+                        <dependencies>
+                            <dependency>
+                                <groupId></groupId>
+                                <artifactId></artifactId>
+                                <version></version>
+                            </dependency>
+                        </dependencies>
+                    </dependencyManagement>
+    3）同时在父模块中还可以进行聚合的工作，可以不用一个模块一个模块地去install
+                 <modules>
+                        <module></module>
+                        <module></module>
+                        <module></module>
+                 </modules>
+    4）compile周期的依赖传递可能会发生冲突，maven的解决办法是“就近原则”和“先声明原则”

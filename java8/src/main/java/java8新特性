@@ -1,0 +1,50 @@
+java8的特性主要分为三点：Lambda表达式， Stream类的API， Optional类
+
+
+
+
+第一点：Lambda表达式
+
+格式: 参数列表 -> 方法体   例：(a,b) -> {return a+b;};
+      参数列表：用()，如果只有一个参数()可以省略
+      方法体：用{}，如果只有一条语句{}可以省略，并且如果这条语句是return，return和{}一起省略
+
+应用场景：用来当作 函数式接口（就是只有一个抽象方法的接口） 的 实例对象
+
+方法引用：也是Lambda表达式的一种，如果方法体中的那条语句是调用的其他函数，并且 这个抽象方法和这个函数 的 形参和返回值类型相同并且形参个数对应得上（形参个数相同
+         或者第一个形参是调用后几个形参的形式也行），就可以使用方法引用。
+
+格式：类::静态方法名
+     对象::非静态方法名
+
+     类::非静态方法名
+
+
+
+
+
+第二点：Stream类的API
+
+使用方法：stream实例化 + 中间操作 + 终止操作（延迟执行：只有有终止操作的时候才会按序执行中间操作）    例：  list.stream().filter(e -> e > 30).forEach(System.out::println);
+                                                                                                     实例化         中间操作             终止操作
+
+stream实例化：直接使用 容器实例化对象.stream() 或者 容器实例化对象.parallelStream() 或者 Stream.of()
+
+中间操作：filter()   limit()   skip()  distinct()  map()  flatmap()   sorted()
+
+终止操作： allMatch()  遍历--forEach()  归约--reduce()  收集--collect()
+
+
+
+
+
+第三点：Optional类
+
+作用：防止空指针异常
+
+创建：Optional.of(T t)            t必须非空
+      Optional.ofNullable(T t)   t可以为空
+
+常用API： boolean isPresent()     判断是否包含对象
+          T get()                 返回值，如果为空抛异常
+          T orElse(T other)       返回值，如果为空返回other

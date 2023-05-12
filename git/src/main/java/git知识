@@ -1,0 +1,32 @@
+git：分布式版本控制工具
+
+常用命令：
+    1）git config --global user.name 用户名
+       git config --global user.email 邮箱
+       首次安装之后，只需要设置一次
+    2）git init：初始化，让git来管理一个项目，执行后会在项目路径下生成.git文件
+       git status：查看本地库状态
+    3）git add 文件名：将文件从“工作区”添加到“暂存区”
+            从“暂存区”删除文件：git rm --cached 文件名
+    4）git commit -m "日志信息" 文件名：将文件从“暂存区”提交到“本地库”
+    5）git log：查看版本信息
+    6）git reset --hard 版本号：回到历史版本
+
+    分支相关：
+    7）git branch -v：查看分支情况
+    8）git branch 分支名：创建分支
+    9）git checkout 分支名：切换分支
+    10）git merge 分支名：将分支名对应的分支合并到本分支
+
+    远程库：
+    11）git remote add 别名 链接：给远程库起个别名，方便使用
+    12）git push 远程库 分支：把这个分支的东西推送给远程库
+    13）git pull 远程库 分支：把远程库对应分支的东西拉取给本地库
+    14）git clone 远程库：把远程库对应分支的东西克隆到本地
+
+
+
+
+
+
+分支合并时会发生冲突，需要手动解决，解决完之后需要重新add并且commit，注意此时commit不需要写文件名

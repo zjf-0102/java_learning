@@ -8,4 +8,6 @@ public class User {
         System.out.println("say...");
     }
 
+    public void setAge(String age) {
+    }
 }

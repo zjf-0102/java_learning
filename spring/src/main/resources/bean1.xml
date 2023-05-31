@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="user" class="com.xxx.User"></bean>
-<!--  Spring提供了两种IOC容器的实现方式   BeanFactory 和 ApplicationContext  -->
+<!--    scope属性可以设置为singleton和prototype。分别对应单例和多例    单例在加载配置文件时就创建对象    多例在使用时才创建对象-->
+<!--    autowire自动装配 byname就是根据属性名称和id自动装配-->
+    <bean id="user" class="com.xxx.User" autowire="byName"></bean>
 
+<!--    使用set进行属性注入-->
+    <bean id="user" class="com.xxx.User">
+        <property name="age" value="12"></property>
+    </bean>
+
+    <!-- 注入对象类型使用ref-->
+    <bean id="user" class="com.xxx.User">
+        <property name="age" ref=""></property>
+    </bean>
+
+    <!-- 注入集合类型-->
+    <bean id="user" class="com.xxx.User">
+        <property name="">
+            <list>
+                <value>
+                    test
+                </value>
+            </list>
+        </property>
+    </bean>
+
+<!--    读取外部配置文件，比如：数据库配置文件
+        后面在使用配置文件中的值的时候可以用${键}来调用
+-->
+    <context:property-placeholder location=""></context:property-placeholder>
+
+<!--    bean的生命周期
+            1.创建
+            2.属性注入
+              传给后置处理器
+            3.初始化
+              传给后置处理器
+            4.使用
+            5.销毁
+-->
+
+<!--    要使用注解的方式需要开启组件扫描-->
+    <context:component-scan base-package="com.xxx"></context:component-scan>
 </beans>

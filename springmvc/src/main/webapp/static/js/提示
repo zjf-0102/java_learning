@@ -1,0 +1,3 @@
+这里放静态资源，如：vue.js或者ajax.js
+因为springmvc无法解析静态资源，所以在springmvc.xml中配置静态资源解析那一行
+流程：先是mvc解析，如果没法解析就用默认的servlet解析，这样就可以访问到静态资源了。

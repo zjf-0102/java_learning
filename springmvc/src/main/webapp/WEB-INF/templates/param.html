@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>请求参数</title>
+</head>
+<body>
+<h1>获取请求参数</h1>
+<a th:href="@{/param/test1(username='admin',password=123456)}">测试获取请求参数</a>
+
+<!--使用put方式提交表单-->
+<form th:action="@{/param/test4}" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="submit"  value="修改操作">
+</form>
+</body>
+</html>

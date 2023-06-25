@@ -29,8 +29,22 @@
     <mvc:default-servlet-handler/>
 
 <!--    开启mvc注解驱动-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="defaultCharset" value="UTF-8"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>TEXT_HTML</value>
+                        <value>APPLICATION_JSON</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
 <!--    文件上传解析器-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+<!--    还有 拦截器interceptor 和 异常处理器ExceptionHandler 的配置 -->
 </beans>

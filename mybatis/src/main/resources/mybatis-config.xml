@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="jdbc.properties"/>
+
+    <settings>
+<!--        将下划线映射为驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+<!--        设置延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+
+<!--    设置别名-->
+    <typeAliases>
+<!--        以包为单位，统一设置别名，默认别名为类名-->
+        <package name="com.nuist.pojo"/>
+    </typeAliases>
+
+<!--    分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+<!--        <mapper resource="mappers/UserMapper.xml"/>-->
+<!--        映射文件的包名和类名必须和接口的一样-->
+        <package name="com.nuist.mapper"/>
+    </mappers>
+</configuration>

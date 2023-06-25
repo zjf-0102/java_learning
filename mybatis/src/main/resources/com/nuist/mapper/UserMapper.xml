@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nuist.mapper.UserMapper">
+
+<!--    int insertUser(User user);           配置获取自增的主键-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user values (null, #{username}, #{password}, #{age}, #{sex}, #{email})
+    </insert>
+
+<!--    User selectUserById(int id);-->
+    <select id="selectUserById" resultType="User">
+        select * from t_user where id = #{id}
+    </select>
+
+<!--    User checkLogin(String username, String password);-->
+    <select id="checkLogin" resultType="User">
+        select * from t_user where username = #{param1} and password = #{param2}
+    </select>
+
+<!--    List<User> selectByParam(@Param("username") String username, @Param("password") String password);-->
+    <select id="selectByParam" resultType="User">
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+
+<!--    List<User> selectByLike(@Param("username") String username);-->
+    <select id="selectByLike" resultType="User">
+        select * from t_user where username like '%${username}%'
+    </select>
+
+<!--    int deleteMore(@Param("ids") String ids);-->
+    <delete id="deleteMore">
+        delete from t_user where id in (${ids})
+    </delete>
+
+
+    <resultMap id="userToClass" type="User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+        <result property="cid" column="cid"/>
+
+        <!--        <result property="room.cid" column="cid"/>-->
+        <!--        <result property="room.cname" column="cname"/>-->
+
+        <association property="room" javaType="Class">
+            <id property="cid" column="cid"/>
+            <result property="cname" column="cname"/>
+        </association>
+    </resultMap>
+<!--    User selectDetailUser(@Param("id") int id);-->
+    <select id="selectDetailUser" resultMap="userToClass">
+        select * from t_user left join t_class on t_user.cid = t_class.cid where id = #{id}
+    </select>
+
+
+    <!--        分步查询  优点：可以延迟加载（需要在全局配置文件中开启）-->
+    <resultMap id="step" type="User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+        <result property="cid" column="cid"/>
+        <association property="room" select="com.nuist.mapper.ClassMapper.selectByStepTwo" column="cid"/>
+    </resultMap>
+<!--    User selectByStep(@Param("id") int id);-->
+   <select id="selectByStep" resultMap="step">
+       select * from t_user where id = #{id}
+   </select>
+
+
+<!--    User selectUserByCid(@Param("cid") Integer cid);-->
+    <select id="selectUserByCid" resultType="User">
+        select * from t_user where cid = #{cid}
+    </select>
+
+<!--    List<User> selectByCondition(User user);-->
+    <select id="selectByCondition" resultType="User">
+        select * from t_user
+--         where可以动态生成并且可以将前面的and动态去掉
+        <where>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+</mapper>

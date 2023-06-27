@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#多数据源的操作：
+#    1.需要引入相应的依赖
+#    2.需要在配置文件中，配置dynamic，也就是配置多个数据源
+#    3.最后需要在不同的service类上加上注解@DS("数据源的名称")来标识所操作的数据源

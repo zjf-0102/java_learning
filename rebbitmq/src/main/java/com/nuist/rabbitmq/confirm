@@ -1,0 +1,16 @@
+在和springboot整合之后，要想实现发布确认，需要写一个类实现RabbitTemplate中的两个接口ConfirmCallBack和ReturnCallBack
+
+ConfirmCallBack：实现交换机在收到或者没收到消息时都会返回一个ack
+ReturnCallBack：实现队列无法接收到消息时进行消息回退
+
+注意：要想实现发布确认，需要在配置文件中开启这两个功能
+
+
+
+
+
+优先级队列：创建队列时指定最高优先级，发送消息时指定消息的优先级
+
+
+
+惰性队列：消息保存在磁盘上而不是内存中，用的时候从磁盘读到内存再消费
